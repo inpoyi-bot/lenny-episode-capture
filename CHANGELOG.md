@@ -4,6 +4,13 @@ All notable changes to this skill are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project
 adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+- Made source resolution platform-neutral: use the current environment's connected source,
+  a user-supplied full transcript, or a URL only when it yields complete text.
+- Added ChatGPT installation guidance and removed the Claude-only packaging assumption.
+
 ## [1.1.0] - 2026-06-12
 
 Driven by the first real eval: an independently produced human baseline (the user's own

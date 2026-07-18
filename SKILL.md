@@ -1,6 +1,6 @@
 ---
 name: lenny-episode-capture
-description: Capture a single Lenny's Newsletter episode (podcast interview or written post) into a faithful, structured bilingual (English + 中文) raw-material document — full transcript read end-to-end, themes captured with their argument structure (why/thresholds/qualifications/anti-patterns), concrete examples, and verbatim quotes with timestamps. RAW MATERIAL ONLY: never ranks themes, never writes recommendations, takeaways, or action items, never tells the reader what to do — those judgments belong to the reader downstream. Use whenever the user wants to digest, summarize, capture, write up, or "run C1 on" a Lenny episode — including pasting a Lenny URL, naming an episode/guest, or saying "process the latest Lenny one," "do the capture for this episode," or "turn this transcript into the raw layer." Trigger even without the words "capture" or "skill."
+description: "Capture one Lenny's Newsletter podcast or post as a faithful bilingual raw-material document: read the full transcript, preserve themes and argument structure, record concrete examples, and quote verbatim with timestamps. Use for Lenny episode URLs, titles, guests, latest-episode requests, transcript digests, or raw-layer captures. Never rank themes or give recommendations, takeaways, or action items."
 ---
 
 # Lenny Episode Capture (C1 raw-material layer)
@@ -36,13 +36,19 @@ reader's layer, not yours.**
   only flags where a claim is *contestable* (see "Tension flags"), as neutral raw
   material for the reader to judge.
 
-## Inputs and source
+## Inputs and cross-platform source strategy
 
-**Primary source — the connected Lenny content MCP.** This skill is built to read the
-original transcript/post text from a connected Lenny's Newsletter data source (an MCP /
-connector exposing tools to search or list episodes and to read full content). This is
-the canonical, highest-fidelity source; always prefer it over scraping a web page, which
-may be truncated or paywalled.
+Use the best source available in the current environment. Do not depend on a provider-
+specific tool name, UI, connector, or storage location.
+
+**Source priority:**
+1. A connected Lenny content source that can search/list episodes and read the complete
+   transcript or post.
+2. A complete transcript or post text supplied by the user as a file or in the chat.
+3. The episode URL, only when the current environment can retrieve the complete text.
+
+The connected source is normally the highest-fidelity option; prefer it over a web page
+that may be truncated or paywalled.
 
 Accept any of these as the way the user points at an episode, then resolve it against the
 source:
@@ -50,12 +56,14 @@ source:
 - An **episode title or guest name** (search/list the source to locate the match).
 - **"The latest episode"** (list the source and take the most recent one).
 
-Typical flow: use the source's search/list capability to resolve the input to exactly one
-episode, then use its read capability to pull the **full** transcript or post text.
+Typical flow: use the available source's search/list capability to resolve the input to
+exactly one episode, then use its read capability to pull the **full** transcript or post
+text.
 
-**Fallback.** If no Lenny content MCP is connected, fall back to fetching the episode URL
-directly — but record in the coverage line that fidelity may be lower and the transcript
-may be partial.
+**Completeness gate.** If the accessible URL or source yields only a preview, excerpt, or
+otherwise partial text, do not present a capture as 100% coverage. Ask the user to provide
+the full transcript or enable a source with full access. Never fill a coverage gap from
+memory, search snippets, or inference.
 
 Before writing anything, **confirm the episode identity** — title, date, guest, link —
 so the run is unambiguous and auditable.
@@ -70,11 +78,11 @@ the fidelity of the output is inseparable from it.
 ## Procedure
 
 1. **Identify and confirm the episode.** Resolve the input to one specific episode via
-   the Lenny source (search/list), and state its title, date, guest, and link. If
+   the available source, and state its title, date, guest, and link. If
    "latest" is ambiguous or you cannot reach the source, say so rather than guessing.
 
-2. **Read 100%, end to end.** Pull the full text via the source's read capability — not
-   an excerpt or preview. Verify you actually have the whole thing through to the close
+2. **Read 100%, end to end.** Pull the full text through the available source or supplied
+   transcript — not an excerpt or preview. Verify you actually have the whole thing through to the close
    (the final exchange / sign-off); if the read returns content in chunks, page through
    to the end. Partial reads silently drop late material, and the most pointed takes
    often come at the end — never let coverage trail off.

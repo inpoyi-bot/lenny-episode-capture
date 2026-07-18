@@ -1,8 +1,9 @@
-# lenny-episode-capture
+# Lenny Episode Capture — ChatGPT & Claude
 
-A Claude Agent Skill that captures a single [Lenny's Newsletter](https://www.lennysnewsletter.com/)
+A portable Agent Skill that captures a single [Lenny's Newsletter](https://www.lennysnewsletter.com/)
 episode (podcast interview or written post) into a faithful, structured **bilingual
-(English + 中文)** raw-material document.
+(English + 中文)** raw-material document. The same `SKILL.md` can be installed in ChatGPT
+and Claude.
 
 ## What it does
 
@@ -27,17 +28,23 @@ hands you trustworthy raw material so *you* can do the thinking.
 
 ## Requirements
 
-- **A connected Lenny content source (MCP / connector)** is the primary, highest-fidelity
-  input: the skill resolves the episode and reads the full text through it. Without one,
-  it falls back to fetching the episode URL directly (lower fidelity, possibly partial).
+- **A complete source text.** A connected Lenny source is the highest-fidelity option;
+  otherwise provide a full transcript/post or an episode URL the current platform can
+  read in full. The skill stops rather than claiming complete coverage from a partial page.
 - **A strong model.** Verbatim quoting across a long transcript is demanding; weaker
   models tend to paraphrase quotes as if exact, or silently drop late-episode content.
 
 ## Install
 
-This is an [Agent Skill](https://docs.claude.com). Add it as a custom skill (e.g. in
-Claude Cowork's skill settings) by uploading the skill folder as a ZIP. See Anthropic's
-current documentation for the exact install steps, which may change.
+### ChatGPT
+
+Open **Profile → Skills → Create → Upload**, then upload this folder (or a ZIP whose top
+level contains `SKILL.md`). Wait for the scan to complete and confirm that the skill is
+listed under **Installed**.
+
+### Claude
+
+Add it as a custom skill in Claude's Skills settings by uploading this folder as a ZIP.
 
 ## Usage
 
