@@ -1,9 +1,10 @@
-# Lenny Episode Capture — ChatGPT & Claude
+# Lenny Episode Capture — ChatGPT, Codex & Claude
 
 A portable Agent Skill that captures a single [Lenny's Newsletter](https://www.lennysnewsletter.com/)
 episode (podcast interview or written post) into a faithful, structured **bilingual
-(English + 中文)** raw-material document. The same `SKILL.md` can be installed in ChatGPT
-and Claude.
+(English + 中文)** raw-material document. The same `SKILL.md` follows the open
+[Agent Skills specification](https://agentskills.io/specification) and runs unchanged in
+ChatGPT, Codex, and Claude.
 
 ## What it does
 
@@ -36,15 +37,47 @@ hands you trustworthy raw material so *you* can do the thinking.
 
 ## Install
 
+Use the same `lenny-episode-capture` folder on every host. Platform-specific files such
+as `agents/openai.yaml` only add host UI metadata; they do not change the workflow or
+create a dependency on that platform.
+
 ### ChatGPT
 
-Open **Profile → Skills → Create → Upload**, then upload this folder (or a ZIP whose top
-level contains `SKILL.md`). Wait for the scan to complete and confirm that the skill is
-listed under **Installed**.
+In the ChatGPT desktop app, open **Skills** in the sidebar and import the
+`lenny-episode-capture` folder or packaged ZIP. Invoke it with
+`@lenny-episode-capture`, or ask for a matching Lenny capture and let ChatGPT select it.
+
+### Codex
+
+For a personal Skill, copy or symlink the folder to:
+
+```text
+~/.agents/skills/lenny-episode-capture/
+```
+
+For a repository-scoped Skill, use:
+
+```text
+<repo>/.agents/skills/lenny-episode-capture/
+```
+
+Codex detects changes automatically; restart only if it does not appear. Invoke it with
+`$lenny-episode-capture`, or let Codex select it from the request.
 
 ### Claude
 
-Add it as a custom skill in Claude's Skills settings by uploading this folder as a ZIP.
+In Claude, open **Customize → Skills → + → Create skill → Upload a skill**, then upload
+the packaged ZIP. The ZIP contains the `lenny-episode-capture/` folder at its root, as
+Claude expects.
+
+For Claude Code, copy or symlink the same folder to either:
+
+```text
+~/.claude/skills/lenny-episode-capture/
+<repo>/.claude/skills/lenny-episode-capture/
+```
+
+Invoke it with `/lenny-episode-capture`, or let Claude select it automatically.
 
 ## Usage
 
@@ -53,6 +86,10 @@ Just ask, for example:
 - "Capture the latest Lenny episode."
 - "Run the capture on `<Lenny episode URL>`."
 - "Turn this Lenny transcript into the raw layer."
+
+Explicit invocation syntax differs by host—`@lenny-episode-capture` in ChatGPT,
+`$lenny-episode-capture` in Codex, and `/lenny-episode-capture` in Claude Code—but the
+Skill instructions and output are identical.
 
 ## Output shape
 

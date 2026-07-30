@@ -6,10 +6,17 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Added `agents/openai.yaml` UI metadata for ChatGPT and Codex.
+- Added installation and invocation guidance for Codex and Claude Code.
+- Added a single cross-platform upload package with the Skill folder at the ZIP root.
+
 ### Changed
 - Made source resolution platform-neutral: use the current environment's connected source,
   a user-supplied full transcript, or a URL only when it yields complete text.
 - Added ChatGPT installation guidance and removed the Claude-only packaging assumption.
+- Shortened the trigger description to 199 characters so it satisfies Claude's stricter
+  custom-Skill metadata limit while retaining the main positive and negative triggers.
 
 ## [1.1.0] - 2026-06-12
 

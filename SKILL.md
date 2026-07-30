@@ -1,6 +1,6 @@
 ---
 name: lenny-episode-capture
-description: "Capture one Lenny's Newsletter podcast or post as a faithful bilingual raw-material document: read the full transcript, preserve themes and argument structure, record concrete examples, and quote verbatim with timestamps. Use for Lenny episode URLs, titles, guests, latest-episode requests, transcript digests, or raw-layer captures. Never rank themes or give recommendations, takeaways, or action items."
+description: "Capture one Lenny episode/post as bilingual raw material: themes, reasoning, examples, and timestamped quotes from the full text. Use for Lenny links, titles, guests, or latest. Never rank or advise."
 ---
 
 # Lenny Episode Capture (C1 raw-material layer)
@@ -39,7 +39,9 @@ reader's layer, not yours.**
 ## Inputs and cross-platform source strategy
 
 Use the best source available in the current environment. Do not depend on a provider-
-specific tool name, UI, connector, or storage location.
+specific tool name, UI, connector, invocation syntax, or storage location. Treat
+platform-specific metadata outside this file as optional host configuration, never as a
+runtime dependency.
 
 **Source priority:**
 1. A connected Lenny content source that can search/list episodes and read the complete

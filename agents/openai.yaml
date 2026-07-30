@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lenny Episode Capture"
+  short_description: "Capture one Lenny episode as bilingual raw material"
+  default_prompt: "Use $lenny-episode-capture to capture the latest Lenny episode as a faithful bilingual raw-material document."
