@@ -52,6 +52,16 @@ runtime dependency.
 The connected source is normally the highest-fidelity option; prefer it over a web page
 that may be truncated or paywalled.
 
+**Mandatory runtime discovery and fallback gate:** Before using a supplied or discovered
+URL, actively inspect the tools/connectors available in the current runtime for a Lenny
+content source (including a Lenny MCP or an equivalent connected source). If one is
+available, you **must invoke it first** to resolve the episode and request the complete
+transcript or post. Do not skip the connected source merely because a public URL is easier
+to access. Fall back to input 2 or 3 only after confirming that no such source is available,
+access is denied, or its search/read capability cannot return the complete text; state the
+fallback reason in the run. Discover the source from actual runtime capabilities rather
+than assuming or inventing a provider-specific tool name.
+
 Accept any of these as the way the user points at an episode, then resolve it against the
 source:
 - A **URL** to a Lenny episode.
