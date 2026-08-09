@@ -10,12 +10,18 @@ ChatGPT, Codex, and Claude.
 
 Given one episode, it reads the full transcript end to end and produces:
 
+- a compact **source manifest** recording provenance, completeness, and whether the full
+  source was retained
 - a Chinese **TL;DR**
 - **themes**, each with a bilingual one-line headline, the guest's **argument structure
   (▸)** — why / thresholds / qualifications / anti-patterns / procedures, as the guest
   stated them — concrete **examples (📎)**, **verbatim quotes with timestamps (📌)**,
   and an optional neutral **tension flag (⚖️)**
 - light subject-matter **tags** and a one-line summary
+
+When the host supports files and the source can be retained, the Skill saves the complete
+transcript/post as a **separate audit artifact**. It never embeds the full source inside
+the C1 capture.
 
 ## The one design principle: capture, never judge
 
@@ -93,6 +99,20 @@ Skill instructions and output are identical.
 
 ## Output shape
 
+A file-capable run produces:
+
+```text
+source-manifest.md     required
+transcript.md          conditional: only when retention is supported and permitted
+c1-capture.md          required
+```
+
+Generated episode data belongs in the user's chosen project or workspace, **not in this
+Skill repository**. The manifest records a stable retrieval reference when the full source
+cannot be retained. The C1 capture remains the default downstream reading surface; the
+complete source is consulted only to verify omissions, context, qualifications, examples,
+or quotations.
+
 Each theme is captured as:
 
 ```
@@ -120,6 +140,10 @@ Each theme is captured as:
 This is the *capture* layer of a larger personal learning workflow. The synthesis layer —
 deciding what matters, connecting it to your own work, and what to do about it — is kept
 human by design and is not part of this skill.
+
+It also leaves personal learning artifacts out of the public Skill repository: transcripts,
+real episode captures, downstream notes, and competency ledgers should remain in the user's
+own workspace unless explicitly prepared as rights-safe public examples.
 
 ## License
 

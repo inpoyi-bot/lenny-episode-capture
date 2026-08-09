@@ -80,6 +80,38 @@ memory, search snippets, or inference.
 Before writing anything, **confirm the episode identity** — title, date, guest, link —
 so the run is unambiguous and auditable.
 
+## Run artifacts and source-retention contract
+
+Keep the reusable Skill separate from episode data. **Never write a transcript, capture,
+manifest, or downstream note into the Skill's installation folder or source repository**
+unless the user explicitly requests a rights-safe example or test fixture there. Honor a
+user-supplied output location; otherwise use the current project/workspace when it supports
+files, or return the artifacts in chat without claiming they were saved.
+
+In a file-capable runtime, produce:
+- **Required:** one C1 capture using the output template below.
+- **Required:** one source manifest recording provenance and completeness.
+- **Conditional:** one separate full-source artifact (`transcript.md` or the original post
+  text) only when the source is exportable and the user, runtime, and source conditions
+  permit retention.
+
+In a chat-only runtime, return the C1 capture plus the compact manifest fields in the
+response. Mark the transcript as `not retained`; do not imply that a local artifact exists.
+
+The source manifest must record, when available:
+- episode title, guest, date, and canonical URL;
+- retrieval timestamp and source method;
+- approximate word count;
+- whether coverage is complete and the closing/sign-off was reached;
+- whether the full source was retained, its path/reference if retained, or the reason it
+  was not retained;
+- the Skill name and version/revision if the host exposes them.
+
+**Do not embed the full transcript inside the C1 capture.** The capture is the default
+input to the downstream human step. The complete source is an audit artifact to consult
+only when checking omissions, context, qualifications, examples, or quotations. Reading
+the full source during C1 must not force the downstream reader to process it again.
+
 ## Model note
 
 Verbatim quoting across an 18,000-word transcript is demanding: weaker/faster models
@@ -99,7 +131,13 @@ the fidelity of the output is inseparable from it.
    to the end. Partial reads silently drop late material, and the most pointed takes
    often come at the end — never let coverage trail off.
 
-3. **Derive themes.** Group the substance into themes — as many as the content genuinely
+3. **Record provenance; retain the source only when allowed.** Create the source manifest
+   after reaching the end. When full-text retention is supported and permitted, save the
+   complete source as a separate artifact beside the capture; otherwise record a stable
+   retrieval reference and why no local copy was retained. Never place run data in the
+   Skill repository, and never append the full source to the capture.
+
+4. **Derive themes.** Group the substance into themes — as many as the content genuinely
    warrants, merging near-duplicates. Aim for roughly ≤ 15; do **not** force a target
    number, pad thin material, or split one idea to inflate the count. Keep themes in the
    order they best represent the episode (rough chronological or natural grouping) — do
@@ -108,13 +146,13 @@ the fidelity of the output is inseparable from it.
    build / how to decide / how to make people want it") — grouping by the episode's own
    content logic is description; ranking by importance is judgment.
 
-4. **Write each theme** using the exact block in "Output template": a one-sentence
+5. **Write each theme** using the exact block in "Output template": a one-sentence
    bilingual **headline** (one EN sentence + 一句中文), a `▸ 论证 / Structure` block
    capturing how the guest's argument is built (see "Capture the argument" below), an
    `📎 例证 / Examples` block for the concrete instances cited, one or two verbatim
    quotes with timestamps, and — only where warranted — one neutral tension flag.
 
-5. **Mine each substantive answer before moving on.** A long answer usually contains
+6. **Mine each substantive answer before moving on.** A long answer usually contains
    more than its headline claim — thresholds ("good enough to ship"), qualifications,
    anti-patterns, named procedures. Before finalizing, re-scan each substantive answer
    and ask: *besides the headline, what other independent claims did the guest make
@@ -122,17 +160,17 @@ the fidelity of the output is inseparable from it.
    that theme's Structure block. One-answer-one-point is the main way capture silently
    loses substance.
 
-6. **Quote verbatim; flag artifacts; never clean up.** Quotes must be word-for-word from
+7. **Quote verbatim; flag artifacts; never clean up.** Quotes must be word-for-word from
    the transcript. Where the transcript clearly mis-transcribes a word, keep the original
    and flag the likely intended word inline (e.g. `"long-term laws" [likely "flaws"]`).
    Never fabricate, paraphrase-as-quote, or silently "fix" a quote. A polished-but-wrong
    quote is worse than a rough-but-true one, because nothing downstream signals the error.
    Keep each quote short and load-bearing; attach a timestamp (or `~mm:ss` estimate).
 
-7. **Write the TL;DR** in Chinese, 3–5 sentences. It must be *descriptive* (what the
+8. **Write the TL;DR** in Chinese, 3–5 sentences. It must be *descriptive* (what the
    episode covered), not *prescriptive* (what to do about it).
 
-8. **Write the one-line summary** in both EN and 中文 — a faithful compression of the
+9. **Write the one-line summary** in both EN and 中文 — a faithful compression of the
    episode's throughline, still descriptive, no advice.
 
 ## The hard boundary — never cross into the reader's layer
@@ -245,12 +283,37 @@ describing **what the episode is about** — its domain, industry, or career top
 
 ## Output template (use this exact structure)
 
+Create the source manifest as a separate artifact before the C1 capture when the runtime
+supports files. In chat-only environments, place this compact block immediately before
+the capture:
+
+```
+# Source Manifest
+
+- Episode: <title>
+- Guest: <guest>
+- Date: <YYYY-MM-DD>
+- Canonical URL: <url>
+- Retrieved at: <timestamp, if available>
+- Source method: <connected source / supplied file / complete URL>
+- Approximate word count: <n>
+- Coverage: complete
+- Reached closing/sign-off: yes
+- Full source retained: <yes / no>
+- Source artifact or retrieval reference: <path / source identifier / url>
+- Non-retention reason: <omit when retained>
+- Skill revision: <version or revision if available; otherwise omit>
+```
+
+Then create the C1 capture:
+
 ```
 # <英文标题> / <中文标题>
 
 **Episode / 单集:** <title>
 **Date / 日期:** <YYYY-MM-DD> · **Length / 篇幅:** ~<n> words
 **Source / 来源:** <url>
+**Source record / 来源记录:** <manifest path or retrieval reference>
 
 **标签 / Tags:** `#topic-1` `#topic-2` … (3–6 个,描述主题/领域,非能力标签)
 
@@ -342,6 +405,13 @@ ranking, no advice. Both disciplines together are exactly what this skill enforc
 
 - Episode identity confirmed (title / date / guest / link)?
 - Coverage reached the actual end of the transcript (no silent trailing-off)?
+- Source manifest created with retrieval method, coverage, and closing verification?
+- Full source retained separately when supported and permitted, or the non-retention reason
+  and stable retrieval reference recorded?
+- No run artifact written into the Skill installation/source repository unless explicitly
+  requested as a rights-safe example or test fixture?
+- Full transcript kept out of the C1 capture, while downstream verification can still reach
+  the source artifact or retrieval reference?
 - Every quote verbatim, short, timestamped; transcription artifacts flagged in place?
 - Themes ordered by content, **not** by importance; no theme marked as more important?
 - Does every theme that rests on a concrete instance carry a checkable `📎` example
