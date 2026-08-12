@@ -102,16 +102,20 @@ Skill instructions and output are identical.
 A file-capable run produces:
 
 ```text
-source-manifest.md     required
-transcript.md          conditional: only when retention is supported and permitted
-c1-capture.md          required
+outputs/<episode-slug>/
+├── source-manifest.md     required
+├── transcript.md          conditional: only when retention is supported and permitted
+└── c1-capture.md          required
 ```
 
-Generated episode data belongs in the user's chosen project or workspace, **not in this
-Skill repository**. The manifest records a stable retrieval reference when the full source
-cannot be retained. The C1 capture remains the default downstream reading surface; the
-complete source is consulted only to verify omissions, context, qualifications, examples,
-or quotations.
+This is the default location inside the current project or workspace; an explicit
+user-supplied output location takes precedence. Repeat runs reuse the same episode folder,
+and run artifacts are never scattered in the workspace root. Generated episode data does
+not belong in the Skill installation or public source repository unless the user has
+explicitly chosen that repository as a private local data workspace. The manifest records a
+stable retrieval reference when the full source cannot be retained. The C1 capture remains
+the default downstream reading surface; the complete source is consulted only to verify
+omissions, context, qualifications, examples, or quotations.
 
 Each theme is captured as:
 

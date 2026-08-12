@@ -1,4 +1,4 @@
 interface:
   display_name: "Lenny Episode Capture"
   short_description: "Capture one Lenny episode with auditable source provenance"
-  default_prompt: "Use $lenny-episode-capture to capture the latest Lenny episode, record a source manifest, and retain the full source separately when permitted."
+  default_prompt: "Use $lenny-episode-capture to capture the latest Lenny episode under outputs/<episode-slug>/, record a source manifest, and retain the full source separately when permitted."

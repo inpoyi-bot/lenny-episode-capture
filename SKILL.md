@@ -84,16 +84,27 @@ so the run is unambiguous and auditable.
 
 Keep the reusable Skill separate from episode data. **Never write a transcript, capture,
 manifest, or downstream note into the Skill's installation folder or source repository**
-unless the user explicitly requests a rights-safe example or test fixture there. Honor a
-user-supplied output location; otherwise use the current project/workspace when it supports
-files, or return the artifacts in chat without claiming they were saved.
+unless the user explicitly chooses that repository as the local data workspace or requests
+a rights-safe example or test fixture there. Honor a user-supplied output location;
+otherwise, in a file-capable runtime, use this stable run directory:
+
+```text
+<current-project-or-workspace>/outputs/<episode-slug>/
+```
+
+Build `<episode-slug>` from the canonical English episode title: lowercase it, replace
+non-alphanumeric runs with single hyphens, and trim leading/trailing hyphens. Reuse the
+same directory for repeat captures of the same episode. If that slug already identifies a
+different episode, append the episode date as `-YYYY-MM-DD`. Create the directory before
+writing; never scatter run artifacts in the workspace root. In a chat-only runtime, return
+the artifacts in chat without claiming they were saved.
 
 In a file-capable runtime, produce:
-- **Required:** one C1 capture using the output template below.
-- **Required:** one source manifest recording provenance and completeness.
-- **Conditional:** one separate full-source artifact (`transcript.md` or the original post
-  text) only when the source is exportable and the user, runtime, and source conditions
-  permit retention.
+- **Required:** `<run-directory>/c1-capture.md`, using the output template below.
+- **Required:** `<run-directory>/source-manifest.md`, recording provenance and
+  completeness.
+- **Conditional:** `<run-directory>/transcript.md` (or the original post text) only when
+  the source is exportable and the user, runtime, and source conditions permit retention.
 
 In a chat-only runtime, return the C1 capture plus the compact manifest fields in the
 response. Mark the transcript as `not retained`; do not imply that a local artifact exists.
@@ -131,11 +142,12 @@ the fidelity of the output is inseparable from it.
    to the end. Partial reads silently drop late material, and the most pointed takes
    often come at the end — never let coverage trail off.
 
-3. **Record provenance; retain the source only when allowed.** Create the source manifest
+3. **Create the stable run directory and record provenance.** Resolve
+   `outputs/<episode-slug>/` (or the user-supplied location), then create the source manifest
    after reaching the end. When full-text retention is supported and permitted, save the
    complete source as a separate artifact beside the capture; otherwise record a stable
-   retrieval reference and why no local copy was retained. Never place run data in the
-   Skill repository, and never append the full source to the capture.
+   retrieval reference and why no local copy was retained. Never scatter run data in the
+   workspace root, and never append the full source to the capture.
 
 4. **Derive themes.** Group the substance into themes — as many as the content genuinely
    warrants, merging near-duplicates. Aim for roughly ≤ 15; do **not** force a target
@@ -406,6 +418,8 @@ ranking, no advice. Both disciplines together are exactly what this skill enforc
 - Episode identity confirmed (title / date / guest / link)?
 - Coverage reached the actual end of the transcript (no silent trailing-off)?
 - Source manifest created with retrieval method, coverage, and closing verification?
+- All run artifacts stored together under the user-supplied location or the stable default
+  `outputs/<episode-slug>/`, with none scattered in the workspace root?
 - Full source retained separately when supported and permitted, or the non-retention reason
   and stable retrieval reference recorded?
 - No run artifact written into the Skill installation/source repository unless explicitly

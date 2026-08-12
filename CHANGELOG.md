@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-08-12
+
+- Standardized file-capable runs under `outputs/<episode-slug>/`, with fixed artifact
+  names for the C1 capture, source manifest, and conditional retained transcript.
+- Required repeat runs to reuse the episode directory and prohibited scattering artifacts
+  in the workspace root.
+
 All notable changes to this skill are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project
 adheres to [Semantic Versioning](https://semver.org/).
